@@ -13,101 +13,99 @@ namespace PSX
             fogPass = new FogPass(RenderPassEvent.BeforeRenderingPostProcessing);
         }
 
-        //ScripstableRendererFeature is an abstract class, you need this method
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            fogPass.Setup(renderer.cameraColorTargetHandle);
+            if (fogPass == null)
+                return;
+
             renderer.EnqueuePass(fogPass);
         }
     }
-    
-    
+
     public class FogPass : ScriptableRenderPass
     {
         private static readonly string shaderPath = "PostEffect/Fog";
         static readonly string k_RenderTag = "Render Fog Effects";
+
         static readonly int MainTexId = Shader.PropertyToID("_MainTex");
         static readonly int TempTargetId = Shader.PropertyToID("_TempTargetFog");
-        static readonly int FogDensity = Shader.PropertyToID("_FogDensity");
-        static readonly int FogDistance = Shader.PropertyToID("_FogDistance");
+
         static readonly int FogColor = Shader.PropertyToID("_FogColor");
+        static readonly int FogDensity = Shader.PropertyToID("_FogDensity");
         static readonly int FogNear = Shader.PropertyToID("_FogNear");
         static readonly int FogFar = Shader.PropertyToID("_FogFar");
         static readonly int FogAltScale = Shader.PropertyToID("_FogAltScale");
         static readonly int FogThinning = Shader.PropertyToID("_FogThinning");
         static readonly int NoiseScale = Shader.PropertyToID("_NoiseScale");
         static readonly int NoiseStrength = Shader.PropertyToID("_NoiseStrength");
-        
+
         Fog fog;
         Material fogMaterial;
-        RenderTargetIdentifier currentTarget;
-    
+        RTHandle cameraColorTarget;
+
         public FogPass(RenderPassEvent evt)
         {
             renderPassEvent = evt;
             var shader = Shader.Find(shaderPath);
             if (shader == null)
             {
-                Debug.LogError("Shader not found.");
+                Debug.LogError("Shader not found: " + shaderPath);
                 return;
             }
-            this.fogMaterial = CoreUtils.CreateEngineMaterial(shader);
+            fogMaterial = CoreUtils.CreateEngineMaterial(shader);
         }
-    
+
+        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+        {
+            cameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
+        }
+
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            if (this.fogMaterial == null)
-            {
-                Debug.LogError("Material not created.");
+            if (fogMaterial == null)
                 return;
-            }
-    
-            if (!renderingData.cameraData.postProcessEnabled) return;
-    
+
+            if (!renderingData.cameraData.postProcessEnabled)
+                return;
+
             var stack = VolumeManager.instance.stack;
-            
-            this.fog = stack.GetComponent<Fog>();
-            if (this.fog == null) { return; }
-            if (!this.fog.IsActive()) { return; }
-    
+            fog = stack.GetComponent<Fog>();
+            if (fog == null || !fog.IsActive())
+                return;
+
             var cmd = CommandBufferPool.Get(k_RenderTag);
             Render(cmd, ref renderingData);
             context.ExecuteCommandBuffer(cmd);
             CommandBufferPool.Release(cmd);
         }
-    
-        public void Setup(in RenderTargetIdentifier currentTarget)
+
+        private void Render(CommandBuffer cmd, ref RenderingData renderingData)
         {
-            this.currentTarget = currentTarget;
-        }
-    
-        void Render(CommandBuffer cmd, ref RenderingData renderingData)
-        {
-            ref var cameraData = ref renderingData.cameraData;
-            var source = currentTarget;
+            var cameraData = renderingData.cameraData;
+            var source = cameraColorTarget;
             int destination = TempTargetId;
-    
-            //getting camera width and height 
-            var w = cameraData.camera.scaledPixelWidth;
-            var h = cameraData.camera.scaledPixelHeight;
-            
-            //setting parameters here 
-            cameraData.camera.depthTextureMode = cameraData.camera.depthTextureMode | DepthTextureMode.Depth;
-            this.fogMaterial.SetFloat(FogDensity, this.fog.fogDensity.value);
-            this.fogMaterial.SetFloat(FogDistance, this.fog.fogDistance.value);
-            this.fogMaterial.SetColor(FogColor, this.fog.fogColor.value);
-            this.fogMaterial.SetFloat(FogNear, this.fog.fogNear.value);
-            this.fogMaterial.SetFloat(FogFar, this.fog.fogFar.value);
-            this.fogMaterial.SetFloat(FogAltScale, this.fog.fogAltScale.value);
-            this.fogMaterial.SetFloat(FogThinning, this.fog.fogThinning.value);
-            this.fogMaterial.SetFloat(NoiseScale, this.fog.noiseScale.value);
-            this.fogMaterial.SetFloat(NoiseStrength, this.fog.noiseStrength.value);
-    
-            int shaderPass = 0;
-            cmd.SetGlobalTexture(MainTexId, source);
-            cmd.GetTemporaryRT(destination, w, h, 0, FilterMode.Point, RenderTextureFormat.Default);
+
+            int w = cameraData.camera.scaledPixelWidth;
+            int h = cameraData.camera.scaledPixelHeight;
+
+            fogMaterial.SetColor(FogColor, fog.fogColor.value);
+            fogMaterial.SetFloat(FogDensity, fog.fogDensity.value);
+            fogMaterial.SetFloat(FogNear, fog.fogNear.value);
+            fogMaterial.SetFloat(FogFar, fog.fogFar.value);
+            fogMaterial.SetFloat(FogAltScale, fog.fogAltScale.value);
+            fogMaterial.SetFloat(FogThinning, fog.fogThinning.value);
+            fogMaterial.SetFloat(NoiseScale, fog.noiseScale.value);
+            fogMaterial.SetFloat(NoiseStrength, fog.noiseStrength.value);
+
+            cmd.GetTemporaryRT(destination, w, h, 0, FilterMode.Bilinear, RenderTextureFormat.Default);
             cmd.Blit(source, destination);
-            cmd.Blit(destination, source, this.fogMaterial, shaderPass);
+            cmd.Blit(destination, source, fogMaterial, 0);
+        }
+
+        public override void OnCameraCleanup(CommandBuffer cmd)
+        {
+            cmd.ReleaseTemporaryRT(TempTargetId);
         }
     }
 }
+
