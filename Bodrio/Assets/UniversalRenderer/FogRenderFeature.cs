@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements.Experimental;
 
 namespace PSX
 {
@@ -122,5 +124,81 @@ namespace PSX
             // Liberar temporal
             cmd.ReleaseTemporaryRT(destination);
         }
+    }ausing UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+namespace PSX
+    {
+        public class FogRenderFeature : ScriptableRendererFeature
+        {
+            private FogPass pass;
+
+            public override void Create()
+            {
+                pass = new FogPass(RenderPassEvent.AfterRenderingPostProcessing);
+            }
+
+            public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+            {
+                renderer.EnqueuePass(pass);
+            }
+
+            private class FogPass : ScriptableRenderPass
+            {
+                private Material material;
+                private const string ShaderPath = "PostEffect/Fog";
+
+                private static readonly int TempTargetId = Shader.PropertyToID("_TempFog");
+
+                public FogPass(RenderPassEvent evt)
+                {
+                    renderPassEvent = evt;
+                    Shader shader = Shader.Find(ShaderPath);
+                    if (shader != null)
+                        material = CoreUtils.CreateEngineMaterial(shader);
+                    else
+                        Debug.LogError($"Shader not found: {ShaderPath}");
+                }
+
+                public override void RecordRenderGraph(RenderGraph renderGraph, ref RenderingData renderingData)
+                {
+                    if (material == null || !renderingData.cameraData.postProcessEnabled) return;
+
+                    var stack = VolumeManager.instance.stack;
+                    var settings = stack.GetComponent<Fog>();
+                    if (settings == null || !settings.IsActive()) return;
+
+                    var colorTarget = renderingData.cameraData.renderer.cameraColorTarget;
+
+                    renderGraph.AddRenderPass<PassData>("Fog", out var passData, colorTarget)
+                        .SetRenderFunc((PassData data, RenderGraphContext ctx) =>
+                        {
+                            var cmd = ctx.cmd;
+                            int w = renderingData.cameraData.camera.scaledPixelWidth;
+                            int h = renderingData.cameraData.camera.scaledPixelHeight;
+
+                            cmd.GetTemporaryRT(TempTargetId, w, h, 0, FilterMode.Point, RenderTextureFormat.Default);
+
+                            material.SetFloat("_FogDensity", settings.fogDensity.value);
+                            material.SetFloat("_FogDistance", settings.fogDistance.value);
+                            material.SetColor("_FogColor", settings.fogColor.value);
+                            material.SetFloat("_FogNear", settings.fogNear.value);
+                            material.SetFloat("_FogFar", settings.fogFar.value);
+                            material.SetFloat("_FogAltScale", settings.fogAltScale.value);
+                            material.SetFloat("_FogThinning", settings.fogThinning.value);
+                            material.SetFloat("_NoiseScale", settings.noiseScale.value);
+                            material.SetFloat("_NoiseStrength", settings.noiseStrength.value);
+
+                            cmd.Blit(colorTarget, TempTargetId);
+                            cmd.Blit(TempTargetId, colorTarget, material);
+                            cmd.ReleaseTemporaryRT(TempTargetId);
+                        });
+                }
+
+                private class PassData { }
+            }
+        }
     }
+
 }
