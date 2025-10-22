@@ -1,117 +1,64 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-Shader "PostEffect/Fog"
+﻿Shader "PostEffect/Fog"
 {
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
+        _FogColor("Fog Color", Color) = (0.5, 0.5, 0.5, 1)
+        _FogDensity("Fog Density", Range(0, 2)) = 0.3
+        _NoiseScale("Noise Scale", Range(0.1, 10)) = 4
+        _NoiseStrength("Noise Strength", Range(0, 1)) = 0.2
     }
-    
-    CGINCLUDE
-        #include "UnityCG.cginc"
-        #include "Assets/Shaders/cginc/voronoi.cginc"
-    
-        sampler2D _MainTex;
-        sampler2D _CameraDepthTexture;
-        
-        float _FogDensity;
-        float _FogDistance;
-        float4 _FogColor;
-        
-        float _FogNear;
-        float _FogFar;
-        float _FogAltScale;
-        float _FogThinning;
-        
-        float _NoiseScale;
-        float _NoiseStrength;
 
-        struct appdata
-        {
-            float4 vertex : POSITION;
-            float2 uv : TEXCOORD0;
-        };
-        
-        struct v2f
-        {
-            float4 vertex : SV_POSITION;
-            float2 uv : TEXCOORD0;
-            float2 screenPosition : TEXCOORD1;
-            float4 worldPos : TEXCOORD2;
-        };
-        
-        
-        float ComputeDistance(float depth)
-        {
-            float dist = depth * _ProjectionParams.z;
-            dist -= _ProjectionParams.y * _FogDistance;
-            return dist;
-        }
-        
-        half ComputeFog(float z, float _Density)
-        {
-            half fog = 0.0;
-            fog = exp2(_Density * z);
-            //fog = _Density * z;
-            //fog = exp2(-fog * fog);
-            return saturate(fog);
-        }
-
-        v2f Vert(appdata v)
-        {
-            v2f o;
-            o.vertex = UnityObjectToClipPos(v.vertex);
-            o.uv = v.uv;
-            o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-            o.screenPosition = ComputeScreenPos(o.vertex);
-            return o;
-        }
-
-        float4 Frag (v2f i) : SV_Target
-        {
-            //uvs
-            float2 screenPos = i.screenPosition.xy;
-            float2 screenParam = _ScreenParams.xy;
-            float2 uv = i.uv;
-            
-            //base texture 
-            float4 Color = tex2D(_MainTex, uv) ;            
-            
-            //lighting 
-            float3 worldCam = _WorldSpaceCameraPos;
-            float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
-            float3 viewDirection = normalize(float3(float4(_WorldSpaceCameraPos.xyz, 1.0) - i.worldPos.xyz));
-            //float d = length(viewDirection);
-            //float l = saturate((d - _FogNear) / (_FogFar - _FogNear) / clamp(i.worldPos.y / _FogAltScale + 1, 1, _FogThinning));
-            
-            //background and color 
-            float4 ambientColor = float4(0.1,0.1,0.1,0.1);
-            float4 background = tex2D(_MainTex, i.uv);
-            
-            //depth handling
-            float Depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
-            float linearDepth = Linear01Depth(Depth);
-            //float finalDepth = linearDepth * _FogDistance;
-            
-            float dist = ComputeDistance(Depth);
-            float fog = 1.0 - ComputeFog(dist, _FogDensity);
- 
-            float screenNoise = cnoise(screenPos * screenParam / _NoiseScale);            
-  
-            return lerp(Color, _FogColor * ambientColor , saturate(fog + (screenNoise * _NoiseStrength)) );
-        }
-    ENDCG
-    
     SubShader
     {
+        Tags { "RenderPipeline"="UniversalPipeline" }
         Cull Off ZWrite Off ZTest Always
-        Tags { "RenderPipeline" = "UniversalPipeline"}
+
         Pass
         {
-            CGPROGRAM
-                #pragma vertex Vert
-                #pragma fragment Frag
-            ENDCG
+            Name "Fog"
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment Frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            TEXTURE2D(_CameraDepthTexture);
+            SAMPLER(sampler_CameraDepthTexture);
+
+            float4 _FogColor;
+            float _FogDensity;
+            float _NoiseScale;
+            float _NoiseStrength;
+
+            struct Attributes { float4 positionOS : POSITION; float2 uv : TEXCOORD0; };
+            struct Varyings { float4 positionHCS : SV_POSITION; float2 uv : TEXCOORD0; };
+
+            Varyings Vert(Attributes IN)
+            {
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.uv = IN.uv;
+                return OUT;
+            }
+
+            float random(float2 st)
+            {
+                return frac(sin(dot(st.xy, float2(12.9898,78.233))) * 43758.5453123);
+            }
+
+            float4 Frag(Varyings IN) : SV_Target
+            {
+                float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
+                float rawDepth = SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, IN.uv).r;
+                float linearDepth = Linear01Depth(rawDepth, _ZBufferParams);
+                float fog = saturate(linearDepth * _FogDensity);
+                float noise = (random(IN.uv * _NoiseScale) - 0.5) * _NoiseStrength;
+                float fogFactor = saturate(fog + noise);
+                return lerp(col, _FogColor, fogFactor);
+            }
+            ENDHLSL
         }
     }
 }

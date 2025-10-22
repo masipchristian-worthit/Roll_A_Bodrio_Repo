@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FogRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+  shader: {fileID: 4800000, guid: a64e8590867649e4aaad5c1e24175437, type: 3}
 --- !u!114 &-3019019053151669589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,6 +27,9 @@ MonoBehaviour:
   m_Name: PixelationRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+  shader: {fileID: 4800000, guid: 6cc37f589a3171847bd1dc6f9224ccf3, type: 3}
+  pixelWidth: 70
+  pixelHeight: 70
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,3 +97,7 @@ MonoBehaviour:
   m_Name: DitheringRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+  shader: {fileID: 4800000, guid: 0b3fbf35a693e2e42a255895e5be9dbd, type: 3}
+  patternIndex: 0
+  ditherScale: 1
+  ditherThreshold: 0.5
