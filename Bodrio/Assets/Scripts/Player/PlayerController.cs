@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     [Header("Respawn configuration")]
     public float respawnLimit = -10f; //Limite inferior del que el pj respawnea
     public Transform respawnPoint; //Ref a la posición de respawneo
+
+    [Header("Double Jump Parameters")]
+    public bool canDoubleJump = false;  //activado por el pickup
+    public bool hasJumpedOnce = false; //controla si ya hizo el primer salto
+    private bool jumpPressed = false; //Para evitar doble salto automático
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,6 +53,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            hasJumpedOnce = false; //reset del salto doble
         }
         
     }
@@ -82,10 +88,34 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded == true)
+        if (context.started)
         {
-            isGrounded = false;
-            Jump();
+            jumpPressed = true; // botón presionado
+        }
+
+        if (context.canceled)
+        {
+            jumpPressed = false; // botón soltado
+        }
+
+        if (context.performed)
+        {
+            // Primer salto
+            if (isGrounded)
+            {
+                isGrounded = false;
+                hasJumpedOnce = true;
+                Jump();
+            }
+            // Segundo salto manual (solo si vuelve a presionar el botón)
+            else if (canDoubleJump && hasJumpedOnce && jumpPressed)
+            {
+                hasJumpedOnce = false;
+                Jump();
+            }
+
+            // Previene que salte dos veces en la misma pulsación
+            jumpPressed = false;
         }
     }
 }
