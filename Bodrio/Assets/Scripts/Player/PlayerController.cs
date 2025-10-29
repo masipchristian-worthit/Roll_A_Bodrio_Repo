@@ -15,10 +15,6 @@ public class PlayerController : MonoBehaviour
     public float jumpForce; //Potencia de salto de personaje
     public bool isGrounded = true; //Determina si el pj está en el suelo (Limita el salto)
 
-    [Header("Respawn configuration")]
-    public float respawnLimit = -10f; //Limite inferior del que el pj respawnea
-    public Transform respawnPoint; //Ref a la posición de respawneo
-
     [Header("Double Jump Parameters")]
     public bool canDoubleJump = false;  //activado por el pickup
     public bool hasJumpedOnce = false; //controla si ya hizo el primer salto
@@ -33,12 +29,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //CinematicMovement();
-
-        //Chequeo del respawn por altura
-        if (transform.position.y <= respawnLimit)
-        {
-            Respawn();
-        }
 
     }
 
@@ -73,12 +63,6 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
-    void Respawn()
-    {
-        transform.position = respawnPoint.position; //Cambia la posicion del pj a la posición del punto respawn
-        playerRb.linearVelocity = new Vector3(0, 0, 0); //Resetear la velocidad del rigidbody
     }
 
     //Eventos de Input

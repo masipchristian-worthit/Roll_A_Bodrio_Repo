@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 93cb96d729cc80c4bad869c1d04c3152, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,6 +159,8 @@ MonoBehaviour:
   isGrounded: 1
   respawnLimit: -10
   respawnPoint: {fileID: 0}
+  canDoubleJump: 0
+  hasJumpedOnce: 0
 --- !u!114 &-3779571638780933215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +222,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4149eafe-ee72-4c8b-be5a-afd0c46e3f54
     m_ActionName: 'Gameplay/Dash[/XInputControllerWindows/buttonEast,/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4f5350f-beb6-40b2-9c3d-4811d86ac1f3
+    m_ActionName: 'Gameplay/Size[/Keyboard/ctrl]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
