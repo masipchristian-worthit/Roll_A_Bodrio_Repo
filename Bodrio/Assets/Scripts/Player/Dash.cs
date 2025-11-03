@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerDash : MonoBehaviour
 {
     [Header("Dash Settings")]
-    public float dashForce = 20f;       // Fuerza del empuj�n
-    public float dashDuration = 0.2f;   // Cu�nto dura el impulso
+    public float dashForce = 20f;       // Fuerza del empujón
+    public float dashDuration = 0.2f;   // Cuánto dura el impulso
     public float dashCooldown = 1f;     // Tiempo entre dashes
 
     private Rigidbody rb;
@@ -39,13 +39,17 @@ public class PlayerDash : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
+        // Si estás dashing, ignora input de movimiento
+        if (isDashing)
+            return;
+
         Vector2 input = ctx.ReadValue<Vector2>();
         moveDirection = new Vector3(input.x, 0, input.y).normalized;
     }
 
     private void OnDash(InputAction.CallbackContext ctx)
     {
-        if (canDash && moveDirection != Vector3.zero)
+        if (canDash && !isDashing && moveDirection != Vector3.zero)
             StartCoroutine(DoDash());
     }
 
@@ -54,15 +58,16 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         isDashing = true;
 
-        // Aplica una fuerza instant�nea hacia la direcci�n actual
-        rb.linearVelocity = Vector3.zero; // evita sumar velocidad previa
+        // Aplica una fuerza instantánea hacia la dirección actual
+        rb.linearVelocity = Vector3.zero; // Evita sumar velocidad previa
         rb.AddForce(moveDirection * dashForce, ForceMode.VelocityChange);
 
+        // Espera a que termine la duración del dash
         yield return new WaitForSeconds(dashDuration);
 
         isDashing = false;
 
-        // Deja que el jugador desacelere naturalmente
+        // Espera el cooldown antes de permitir otro dash
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
