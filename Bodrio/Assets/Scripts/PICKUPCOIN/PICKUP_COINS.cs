@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PICKUP_COINS : MonoBehaviour
 {
+    public int coinValue = 1;
     public float attractionSpeed;
     public float collectDistance = 0.4f;
     public Transform target;
@@ -31,6 +32,14 @@ public class PICKUP_COINS : MonoBehaviour
 
     private void Collect()
     {
-        gameObject.gameObject.SetActive(false);
+        // Buscar el componente PlayerCoins en el jugador
+        PlayerCoins playerCoins = target.GetComponent<PlayerCoins>();
+        if (playerCoins != null)
+        {
+            playerCoins.AddCoins(coinValue);
+        }
+
+        // Desactivar o destruir la moneda
+        Destroy(gameObject);
     }
 }
