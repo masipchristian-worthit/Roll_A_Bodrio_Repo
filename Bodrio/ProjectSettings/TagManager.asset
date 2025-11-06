@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - Door
   - Slide
+  - desWall
+  - PickUp
   layers:
   - Default
   - TransparentFX
