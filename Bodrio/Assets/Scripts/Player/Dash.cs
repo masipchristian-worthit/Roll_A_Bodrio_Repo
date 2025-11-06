@@ -9,6 +9,9 @@ public class PlayerDash : MonoBehaviour
     public float dashDuration = 0.2f;   // Cuánto dura el impulso
     public float dashCooldown = 1f;     // Tiempo entre dashes
 
+    [Header("Camera Reference")]
+    public Transform cameraTransform;
+
     private Rigidbody rb;
     private PlayerInput playerInput;
     private bool isDashing = false;
@@ -22,6 +25,11 @@ public class PlayerDash : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
+    void Start()
+    {
+        if (cameraTransform == null && Camera.main != null)
+            cameraTransform = Camera.main.transform;
+    }
     void OnEnable()
     {
         // Conecta eventos del Input System
@@ -44,7 +52,22 @@ public class PlayerDash : MonoBehaviour
             return;
 
         Vector2 input = ctx.ReadValue<Vector2>();
-        moveDirection = new Vector3(input.x, 0, input.y).normalized;
+
+        if (cameraTransform != null)
+        {
+            Vector3 camForward = cameraTransform.forward;
+            Vector3 camRight = cameraTransform.right;
+            camForward.y = 0f;
+            camRight.y = 0f;
+            camForward.Normalize();
+            camRight.Normalize();
+
+            moveDirection = (camForward * input.y + camRight * input.x).normalized;
+        }
+        else
+        {
+            moveDirection = new Vector3(input.x, 0, input.y).normalized;
+        }
     }
 
     private void OnDash(InputAction.CallbackContext ctx)

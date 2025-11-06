@@ -26,7 +26,7 @@ public class OutOfTimePlayer : MonoBehaviour
     {
         if (playerRb != null)
         {
-            playerRb.velocity = Vector3.zero;
+            playerRb.linearVelocity = Vector3.zero;
             playerRb.angularVelocity = Vector3.zero;
             playerRb.isKinematic = true;
         }

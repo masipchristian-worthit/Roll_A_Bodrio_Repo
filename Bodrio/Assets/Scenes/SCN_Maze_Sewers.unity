@@ -7824,9 +7824,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0df0bb824a79aa47a19cedfc7abb084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRb: {fileID: 0}
-  countdownScript: {fileID: 0}
-  playerControllerScript: {fileID: 0}
+  playerRb: {fileID: 1754866248}
+  countdownScript: {fileID: 379776522}
+  playerControllerScript: {fileID: 1754866247}
+--- !u!114 &1754866247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5490414143865011443, guid: 01847ca569745224db17f4b54d24005c, type: 3}
+  m_PrefabInstance: {fileID: 2074054488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976275327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba17874e274ba5b47ba444bd689c2ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &1754866248 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5129575909913566279, guid: 01847ca569745224db17f4b54d24005c, type: 3}
+  m_PrefabInstance: {fileID: 2074054488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1755589884
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Editor References")]
     public Rigidbody playerRb; //Ref al rigidbody del player (Permite modificar gravedad, movimientos fisicos...)
+    public Transform cameraTransform;
 
     [Header("Movement Parameters")]
     public float speed = 10; //Velocidad del personaje
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
+        if (cameraTransform == null && Camera.main != null)
+            cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
             hasJumpedOnce = false; //reset del salto doble
@@ -56,8 +59,24 @@ public class PlayerController : MonoBehaviour
 
     void PhisycalMovement()
     {
-        playerRb.AddForce(Vector3.right * speed * moveInput.x);
-        playerRb.AddForce(Vector3.forward * speed * moveInput.y);
+        if (cameraTransform == null) return;
+
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 moveDir = (camForward * moveInput.y + camRight * moveInput.x).normalized;
+
+        playerRb.AddForce(moveDir * speed);
+
+        if (moveDir.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
+        }
     }
 
     void Jump()
