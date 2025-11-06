@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CountDownScript : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class CountDownScript : MonoBehaviour
     public Image blackFadeImage;
     public float fadeDuration = 5f;
 
-    private bool isFading = false;
+    [HideInInspector] public bool isFading = false;
     private float fadeTimer = 0f;
+
+    public float blackScreenDuration = 10f;
+    private bool blackScreenActive = false;
+    private float blackScreenTimer = 0f;
 
     void Start()
     {
@@ -21,13 +26,29 @@ public class CountDownScript : MonoBehaviour
         if (blackFadeImage != null )
         {
 
-            blackFadeImage.fillAmount = 0f;
+            Color c = blackFadeImage.color;
+            c.a = 0f;
+            blackFadeImage.color = c;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (blackScreenActive)
+        {
+            blackScreenTimer += Time.deltaTime;
+
+            if (blackScreenTimer >= blackScreenDuration)
+            {
+                Debug.Log("Tiempo de pantalla negra terminado. (Aquí puedes cargar la escena de partida perdida)");
+                blackScreenActive = false;
+
+            }
+            return;
+        }
+
         if (isFading)
         {
             DoFade();
@@ -69,13 +90,17 @@ void DoFade()
         fadeTimer += Time.deltaTime;
         float progress = fadeTimer / fadeDuration;
 
-        blackFadeImage.fillAmount = Mathf.Lerp(0f, 1f, progress);
+        Color c = blackFadeImage.color;
+        c.a = Mathf.Lerp(0f, 1f, progress);
+        blackFadeImage.color = c;
 
         if (progress >= 1f)
         {
             isFading = false;
             Debug.Log("Fade Completed");
 
+            blackScreenActive = true;
+            blackScreenTimer = 0f;
         }
     }
 

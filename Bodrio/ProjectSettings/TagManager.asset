@@ -11,6 +11,9 @@ TagManager:
   - Slide
   - desWall
   - PickUp
+  - WallTeeth
+  - AnimationWallTeeth
+  - TEETH
   layers:
   - Default
   - TransparentFX
