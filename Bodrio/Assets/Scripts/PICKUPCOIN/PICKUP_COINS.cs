@@ -21,7 +21,7 @@ public class PICKUP_COINS : MonoBehaviour
     {
         if (isAttracted && target != null)
         {
-            transform.position = Vector3.Lerp(target.position, transform.position, Time.deltaTime * attractionSpeed);
+            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * attractionSpeed);
         }
         if (Vector3.Distance(transform.position, target.position) <collectDistance)
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class door_open : MonoBehaviour
 {
     public Animator animator;
-    public string nombretrigger = "open";
+    public string nombretrigger = "DEL";
     public int requiredCoins = 5;
 
     private void OnTriggerEnter(Collider other)
@@ -16,7 +16,7 @@ public class door_open : MonoBehaviour
             {
                 if (playerCoins.totalCoins >= requiredCoins)
                 {
-                    animator.SetTrigger(nombretrigger);
+                    animator.SetBool(nombretrigger, true);
                 }
                 else
                 {
