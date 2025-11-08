@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6122208577672645794}
   - component: {fileID: 8871577934123288096}
   - component: {fileID: 5129575909913566279}
-  - component: {fileID: 5490414143865011443}
   - component: {fileID: -3779571638780933215}
   - component: {fileID: 417282919960437932}
   - component: {fileID: 8815037156145498013}
@@ -141,26 +140,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5490414143865011443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8306603503756673255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba17874e274ba5b47ba444bd689c2ef5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRb: {fileID: 5129575909913566279}
-  speed: 10
-  moveInput: {x: 0, y: 0}
-  direction: {x: 0, y: 0, z: 0}
-  jumpForce: 5
-  isGrounded: 1
-  canDoubleJump: 0
-  hasJumpedOnce: 0
 --- !u!114 &-3779571638780933215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +167,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5490414143865011443}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -204,7 +183,7 @@ MonoBehaviour:
     m_ActionName: 'Gameplay/Move[/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5490414143865011443}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -273,3 +252,4 @@ MonoBehaviour:
   dashForce: 20
   dashDuration: 0.2
   dashCooldown: 1
+  cameraTransform: {fileID: 0}
