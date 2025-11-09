@@ -11,7 +11,7 @@ public class CountDownScript : MonoBehaviour
     public Image blackFadeImage;
     public float fadeDuration = 5f;
     [HideInInspector] public bool isFading = false;
-    private float fadeTimer = 0f;
+    public float fadeTimer = 0f;
     public float blackScreenDuration = 10f;
     private bool blackScreenActive = false;
     private float blackScreenTimer = 0f;

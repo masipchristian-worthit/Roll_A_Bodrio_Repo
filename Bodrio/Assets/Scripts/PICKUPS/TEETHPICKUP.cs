@@ -3,7 +3,6 @@ using UnityEngine;
 public class PickupDestroyWallTeeth : MonoBehaviour
 {
     public string parentName = "AnimationWallsParent";
-
     public bool useTrigger = true;
 
     private void OnTriggerEnter(Collider other)
@@ -21,6 +20,7 @@ public class PickupDestroyWallTeeth : MonoBehaviour
     private void ActivatePickup()
     {
         PlayerPickupState.TeethPickup = true;
+
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("WallTeeth"))
             Destroy(obj);
 

@@ -37,7 +37,6 @@ public class OutOfTimePlayer : MonoBehaviour
         }
 
         hasFrozen = true;
-        Debug.Log("Player Frozen");
 
     }
 }
