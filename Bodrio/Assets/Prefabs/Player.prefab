@@ -159,7 +159,7 @@ MonoBehaviour:
   speed: 10
   moveInput: {x: 0, y: 0}
   direction: {x: 0, y: 0, z: 0}
-  jumpForce: 5
+  jumpForce: 10
   isGrounded: 1
   canDoubleJump: 0
   hasJumpedOnce: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashForce: 20
   dashDuration: 0.2
-  dashCooldown: 1
+  dashCooldown: 0.5
   cameraTransform: {fileID: 0}
 --- !u!114 &6707954727180276875
 MonoBehaviour:
