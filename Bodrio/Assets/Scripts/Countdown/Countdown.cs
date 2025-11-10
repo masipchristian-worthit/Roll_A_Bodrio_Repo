@@ -1,8 +1,7 @@
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class CountDownScript : MonoBehaviour
 {
     public float startTime = 120f;
@@ -15,6 +14,9 @@ public class CountDownScript : MonoBehaviour
     public float blackScreenDuration = 10f;
     private bool blackScreenActive = false;
     private float blackScreenTimer = 0f;
+
+    [HideInInspector] public bool isPaused = false; // <-- NUEVO: variable para pausar
+
     void Start()
     {
         currentTime = startTime;
@@ -25,7 +27,7 @@ public class CountDownScript : MonoBehaviour
             blackFadeImage.color = c;
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (blackScreenActive)
@@ -33,33 +35,40 @@ public class CountDownScript : MonoBehaviour
             blackScreenTimer += Time.deltaTime;
             if (blackScreenTimer >= blackScreenDuration)
             {
-            blackScreenActive = false;
+                blackScreenActive = false;
             }
             return;
         }
+
         if (isFading)
         {
             DoFade();
             return;
         }
-        currentTime -= Time.deltaTime;
-        if (currentTime < 0)
+
+        if (!isPaused) // <-- solo resta tiempo si no está pausado
         {
-            currentTime = 0;
+            currentTime -= Time.deltaTime;
+            if (currentTime < 0)
+                currentTime = 0;
         }
+
         int minutes = Mathf.FloorToInt(currentTime / 60);
         int seconds = Mathf.FloorToInt(currentTime % 60);
         countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
         if (currentTime <= 0 && !isFading)
         {
             CountdownFinished();
         }
     }
+
     void CountdownFinished()
     {
         isFading = true;
         fadeTimer = 0f;
     }
+
     void DoFade()
     {
         if (blackFadeImage == null) return;
