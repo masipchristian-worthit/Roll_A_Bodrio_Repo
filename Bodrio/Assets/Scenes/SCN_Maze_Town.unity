@@ -283,7 +283,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2383806550166479359, guid: 6f61ab341cc0cb348bbc13762bf90d03, type: 3}
       propertyPath: requiredCoins
-      value: 67
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3607551303711751197, guid: 6f61ab341cc0cb348bbc13762bf90d03, type: 3}
       propertyPath: m_Name
@@ -3586,7 +3586,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6794467910567807150, guid: 3b5943b3fa885dd4d930faaa90319899, type: 3}
       propertyPath: m_text
-      value: x 100$
+      value: x 1$
       objectReference: {fileID: 0}
     - target: {fileID: 6794467910567807150, guid: 3b5943b3fa885dd4d930faaa90319899, type: 3}
       propertyPath: m_fontSize
@@ -5177,6 +5177,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 467151468}
     m_Modifications:
+    - target: {fileID: 5495988155062476298, guid: b17ac6f59102398468603c4d192dfdc6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ab346c363bda84841b73ac69c21a46ca, type: 2}
     - target: {fileID: 6985608924157284898, guid: b17ac6f59102398468603c4d192dfdc6, type: 3}
       propertyPath: m_Name
       value: floor (36)
@@ -5225,6 +5229,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8053055839004750002, guid: b17ac6f59102398468603c4d192dfdc6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e1d23dee8295ab4e8cfed9aaca03c69, type: 2}
+    - target: {fileID: 8930957186115187703, guid: b17ac6f59102398468603c4d192dfdc6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d8869f0e3eb9624fabaf72e5ad3ec03, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -7574,7 +7586,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: a972752a144025640a0f4926504a304b, type: 3}
+  - {fileID: 2100000, guid: 574c9c035a0ff974281dd6bf0c7f3a00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8334,7 +8346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305382417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212339, y: -0.000000011350518, z: 0.0000000012254129, w: 0.98836154}
+  m_LocalRotation: {x: 0.15212338, y: 0.000000014727736, z: -0.0000000022668152, w: 0.98836154}
   m_LocalPosition: {x: 0.11, y: 4.503529, z: -3.8685846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12792,7 +12804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929972710}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212339, y: -0.000000011432748, z: 0.0000000017596684, w: 0.98836154}
+  m_LocalRotation: {x: 0.15212338, y: 0.000000014727737, z: -0.0000000022668154, w: 0.98836154}
   m_LocalPosition: {x: 0.11, y: 4.503529, z: -3.8685846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14198,6 +14210,10 @@ PrefabInstance:
       propertyPath: countdownScript
       value: 
       objectReference: {fileID: 399255216}
+    - target: {fileID: 8387371729116096997, guid: 2e78204dad6955740b93f6f6d5d277e3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ab346c363bda84841b73ac69c21a46ca, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
