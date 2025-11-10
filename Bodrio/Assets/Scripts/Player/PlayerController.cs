@@ -10,22 +10,30 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Parameters")]
     public float speed = 10; //Velocidad del personaje
     public Vector2 moveInput; //Almacen del input de movimiento en la vida real
-    public Vector3 direction; //Dirección de movimiento para  el movimiento físico
+    public Vector3 direction; //Direcciï¿½n de movimiento para  el movimiento fï¿½sico
 
     [Header("Jump Parameters")]
     public float jumpForce; //Potencia de salto de personaje
-    public bool isGrounded = true; //Determina si el pj está en el suelo (Limita el salto)
+    public bool isGrounded = true; //Determina si el pj estï¿½ en el suelo (Limita el salto)
 
     [Header("Double Jump Parameters")]
     public bool canDoubleJump = false;  //activado por el pickup
     public bool hasJumpedOnce = false; //controla si ya hizo el primer salto
-    private bool jumpPressed = false; //Para evitar doble salto automático
+    private bool jumpPressed = false; //Para evitar doble salto automï¿½tico
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("Ladder Settings")]
+    public bool isClimbing = false;
+    public float climbSpeed = 4f;
+    private float originalGravity;
+
     void Start()
     {
 
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
+
+        originalGravity = Physics.gravity.y;
     }
 
     // Update is called once per frame
@@ -37,9 +45,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Tiempo constante del motor de físicas
-        PhisycalMovement();
-    }
+        if (isClimbing)
+        {
+            ClimbLadder();
+        }
+      
+
+            //Tiempo constante del motor de fï¿½sicas
+            PhisycalMovement();
+        }
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -48,9 +63,22 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             hasJumpedOnce = false; //reset del salto doble
         }
-        
+
     }
 
+    void ClimbLadder()
+    {
+        if (moveInput.y <= 0.1f)
+        {
+            playerRb.useGravity = true;
+            return;
+        }
+        playerRb.useGravity = false;
+
+        Vector3 climbVelocity = new Vector3(0, climbSpeed, 0);
+        playerRb.linearVelocity = climbVelocity; 
+
+    }
     void CinematicMovement()
     {
         transform.Translate(Vector3.right * speed * moveInput.x * Time.deltaTime);
@@ -93,12 +121,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            jumpPressed = true; // botón presionado
+            jumpPressed = true; // botï¿½n presionado
         }
 
         if (context.canceled)
         {
-            jumpPressed = false; // botón soltado
+            jumpPressed = false; // botï¿½n soltado
         }
 
         if (context.performed)
@@ -110,15 +138,35 @@ public class PlayerController : MonoBehaviour
                 hasJumpedOnce = true;
                 Jump();
             }
-            // Segundo salto manual (solo si vuelve a presionar el botón)
+            // Segundo salto manual (solo si vuelve a presionar el botï¿½n)
             else if (canDoubleJump && hasJumpedOnce && jumpPressed)
             {
                 hasJumpedOnce = false;
                 Jump();
             }
 
-            // Previene que salte dos veces en la misma pulsación
+            // Previene que salte dos veces en la misma pulsaciï¿½n
             jumpPressed = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = true;
+            playerRb.useGravity = false;
+            playerRb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = false;
+            playerRb.useGravity = true;
+            playerRb.constraints = RigidbodyConstraints.None;
         }
     }
 }
