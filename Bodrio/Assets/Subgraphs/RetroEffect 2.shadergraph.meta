@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Bodrio/Assets/Shaders/URP_PSX_PBR_Master.shadergraph.meta
-guid: 2b3b7d0b179748b449e12721ea4fcfa6
-========
-guid: 50c790df576f542408e902eb8078b0b3
->>>>>>>> Stashed changes:Bodrio/Assets/Subgraphs/Pixel.shadergraph.meta
+guid: b087d510a3d30f842972b0d1883b116c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -512,9 +512,12 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
+<<<<<<< Updated upstream
   - {fileID: -5562272790892780068}
   - {fileID: -6596666391695843118}
   - {fileID: 7545514595330739895}
+=======
+>>>>>>> Stashed changes
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3
