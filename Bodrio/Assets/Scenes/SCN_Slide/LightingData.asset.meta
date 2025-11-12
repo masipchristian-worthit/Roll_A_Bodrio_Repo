@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Bodrio/Assets/Scenes/SCN_Slide/LightingData.asset.meta
 guid: 76c71775e478fd749a607528386f53ac
 NativeFormatImporter:
+========
+guid: 5c66a1dc5487cdd429c85e9b50908158
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> 707f28f97223fec93f8dd10dc87eb838dbd7488d:Bodrio/Assets/Scenes/SCN_Slide.meta
   externalObjects: {}
   mainObjectFileID: 112000000
   userData: 
