@@ -1,20 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneTrigger : MonoBehaviour
+public class SceneChanger : MonoBehaviour
 {
-    [Header("Nombre de la escena a cargar")]
-    public string sceneToLoad = "SCN_Maze_Sewers";
-
-    [Header("Etiqueta del jugador")]
-    public string playerTag = "Player";
+    [Header("Scene Transition Settings")]
+    [SerializeField] private string targetScene;       // Nombre de la escena a cargar
+    [SerializeField] private string targetSpawnID;     // ID del spawn en la escena destino
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Entró al trigger. Cargando escena: " + sceneToLoad);
-            SceneManager.LoadScene(sceneToLoad);
+            // Guardamos el ID del punto de entrada donde debe aparecer el jugador
+            SceneTransitionManager.LastDoorID = targetSpawnID;
+
+            // Cargamos la escena destino
+            SceneManager.LoadScene(targetScene);
         }
     }
 }

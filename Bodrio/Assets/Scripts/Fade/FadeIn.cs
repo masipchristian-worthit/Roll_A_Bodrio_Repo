@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FadeInTrigger : MonoBehaviour
+public class FadeIn : MonoBehaviour
 {
     public CountDownScript countdownScript; // referencia al script del fade
     public OutOfTimePlayer outOfTimePlayer; // referencia al script que congela al player
