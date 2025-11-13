@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FadeIn : MonoBehaviour
+public class TriggerFadeAndFreeze : MonoBehaviour
 {
     [Header("Referencias")]
     public CountDownScript countdownScript;       // Script del fade
