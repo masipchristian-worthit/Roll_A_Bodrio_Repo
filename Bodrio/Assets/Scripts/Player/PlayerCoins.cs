@@ -1,13 +1,27 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerCoins : MonoBehaviour
 {
     public int totalCoins = 0;
+    public TextMeshProUGUI coinsText;
 
-    // Método para sumar monedas
     public void AddCoins(int amount)
     {
         totalCoins += amount;
-        Debug.Log("Monedas totales: " + totalCoins); // Solo para ver en la consola
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (coinsText != null)
+        {
+            coinsText.text = "Coins: " + totalCoins;
+        }
+    }
+
+    private void Start()
+    {
+        UpdateUI(); // Muestra 0 al inicio 
     }
 }

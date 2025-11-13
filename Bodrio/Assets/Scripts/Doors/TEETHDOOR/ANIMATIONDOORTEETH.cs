@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoorTeethTrigger : MonoBehaviour
+public class ANIMATIONDOORTEETH : MonoBehaviour
 {
     public Animator doorAnimator;
 

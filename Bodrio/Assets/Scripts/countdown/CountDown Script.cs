@@ -1,34 +1,57 @@
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CountDownScript : MonoBehaviour
 {
-    [Header("Configuración del Tiempo")]
-    public float startTime = 120f;
-    private float currentTime;
+    private static CountDownScript instance;
 
-    [Header("Referencias de UI")]
+    [Header("Timer Settings")]
+    public float startTime = 120f;
+    [HideInInspector] public float currentTime;
+    [HideInInspector] public bool isPaused = false; // <-- agregado
+
+    [Header("UI References")]
     public TextMeshProUGUI countdownText;
     public Image blackFadeImage;
 
-    [Header("Configuración del Fade")]
+    [Header("Fade Settings")]
     public float fadeDuration = 5f;
     [HideInInspector] public bool isFading = false;
     public float fadeTimer = 0f;
-
-    [Header("Pantalla Negra")]
     public float blackScreenDuration = 10f;
     private bool blackScreenActive = false;
     private float blackScreenTimer = 0f;
 
-    [Header("Control de Pausa")]
-    [HideInInspector] public bool isPaused = false; // <-- NUEVO: pausa del contador
-
-    void Start()
+    private void Awake()
     {
-        currentTime = startTime;
+        // mantener instancia única
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        // iniciar o mantener tiempo
+        if (currentTime <= 0)
+            currentTime = startTime;
 
         if (blackFadeImage != null)
         {
@@ -38,58 +61,55 @@ public class CountDownScript : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        // Si la pantalla negra está activa
+        // si pausa, no bajar tiempo
+        if (isPaused) return;
+
+        // pantalla negra activa
         if (blackScreenActive)
         {
             blackScreenTimer += Time.deltaTime;
-
             if (blackScreenTimer >= blackScreenDuration)
             {
-                Debug.Log("Tiempo de pantalla negra terminado. (Aquí puedes cargar la escena de partida perdida)");
                 blackScreenActive = false;
-                // Aquí podrías hacer: SceneManager.LoadScene("NombreDeTuEscena");
             }
             return;
         }
 
-        // Si está en proceso de fade
+        // efecto fade
         if (isFading)
         {
             DoFade();
             return;
         }
 
-        // Si no está pausado, sigue descontando tiempo
-        if (!isPaused)
-        {
-            currentTime -= Time.deltaTime;
+        // restar tiempo
+        currentTime -= Time.deltaTime;
+        if (currentTime < 0) currentTime = 0;
 
-            if (currentTime < 0)
-                currentTime = 0;
+        // mostrar texto
+        if (countdownText != null)
+        {
+            int minutes = Mathf.FloorToInt(currentTime / 60);
+            int seconds = Mathf.FloorToInt(currentTime % 60);
+            countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
 
-        // Mostrar el tiempo en pantalla
-        int minutes = Mathf.FloorToInt(currentTime / 60);
-        int seconds = Mathf.FloorToInt(currentTime % 60);
-        countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        // Cuando el tiempo llega a 0
+        // tiempo acabado
         if (currentTime <= 0 && !isFading)
         {
             CountdownFinished();
         }
     }
 
-    void CountdownFinished()
+    private void CountdownFinished()
     {
-        Debug.Log("¡You're DEAD!");
         isFading = true;
         fadeTimer = 0f;
     }
 
-    void DoFade()
+    private void DoFade()
     {
         if (blackFadeImage == null) return;
 
@@ -103,10 +123,18 @@ public class CountDownScript : MonoBehaviour
         if (progress >= 1f)
         {
             isFading = false;
-            Debug.Log("Fade Completed");
-
             blackScreenActive = true;
             blackScreenTimer = 0f;
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // volver a vincular UI si se destruyó en el cambio de escena
+        if (countdownText == null)
+            countdownText = FindAnyObjectByType<TextMeshProUGUI>();
+
+        if (blackFadeImage == null)
+            blackFadeImage = FindAnyObjectByType<Image>();
     }
 }

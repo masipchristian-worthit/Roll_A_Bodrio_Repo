@@ -13,6 +13,8 @@ TagManager:
   - desWall
   - AnimationWallTeeth
   - Ladder
+  - CoinMeter
+  - Countdown
   layers:
   - Default
   - TransparentFX

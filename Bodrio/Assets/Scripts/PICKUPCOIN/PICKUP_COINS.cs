@@ -2,35 +2,41 @@ using UnityEngine;
 
 public class PICKUP_COINS : MonoBehaviour
 {
-    public float attractionSpeed;
+    public float attractionSpeed = 5f;
     public float collectDistance = 0.4f;
-    public Transform target;
+    private Transform target;
     private bool isAttracted = false;
+    public int coinValue = 1;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             target = other.transform;
             isAttracted = true;
-            //GetComponent<Collider>().enabled = false;
         }
     }
-    // Update is called once per frame
+
     private void FixedUpdate()
     {
         if (isAttracted && target != null)
         {
-            transform.position = Vector3.Lerp(target.position, transform.position, Time.deltaTime * attractionSpeed);
-        }
-        if (Vector3.Distance(transform.position, target.position) <collectDistance)
-        {
-          Collect();
+            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * attractionSpeed);
 
+            if (Vector3.Distance(transform.position, target.position) < collectDistance)
+            {
+                Collect();
+            }
         }
     }
 
     private void Collect()
     {
-        gameObject.gameObject.SetActive(false);
+        PlayerCoins playerCoins = target.GetComponent<PlayerCoins>();
+        if (playerCoins != null)
+        {
+            playerCoins.AddCoins(coinValue);
+        }
+
+        gameObject.SetActive(false);
     }
 }

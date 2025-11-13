@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerDash : MonoBehaviour
+public class Dash : MonoBehaviour
 {
     [Header("Dash Settings")]
     public float dashForce = 20f;       // Fuerza del empujón

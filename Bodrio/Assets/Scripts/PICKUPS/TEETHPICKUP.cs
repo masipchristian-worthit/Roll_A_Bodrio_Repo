@@ -1,9 +1,14 @@
 using UnityEngine;
+using System.Collections;
 
-public class PickupDestroyWallTeeth : MonoBehaviour
+public class TEETHPICKUP : MonoBehaviour
 {
     public string parentName = "AnimationWallsParent";
     public bool useTrigger = true;
+
+    [Header("Texto del mensaje en pantalla")]
+    public GameObject textoUI; // Arrastra el texto del Canvas
+    public float duracionMensaje = 2f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,10 +40,19 @@ public class PickupDestroyWallTeeth : MonoBehaviour
                 }
             }
         }
-        else
+
+        if (textoUI != null)
         {
+            textoUI.SetActive(true);
+            StartCoroutine(DesactivarDespuesDeTiempo(textoUI, duracionMensaje));
         }
 
         Destroy(gameObject);
+    }
+
+    private IEnumerator DesactivarDespuesDeTiempo(GameObject objeto, float tiempo)
+    {
+        yield return new WaitForSeconds(tiempo);
+        objeto.SetActive(false);
     }
 }
