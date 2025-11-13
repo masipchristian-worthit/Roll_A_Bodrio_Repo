@@ -7,12 +7,16 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public PlayerController playerController;
     public SceneFader sceneFader;
+    public GameObject darkOverlay;
 
     private bool isPaused = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (pauseMenuUI != null)
+            pauseMenuUI.SetActive(false);
+
+        if (darkOverlay != null)
             pauseMenuUI.SetActive(false);
     }
 
@@ -42,6 +46,9 @@ public class PauseMenu : MonoBehaviour
         if (pauseMenuUI != null)
             pauseMenuUI.SetActive(true);
 
+        if (darkOverlay != null)
+            darkOverlay.SetActive(true);
+
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -57,6 +64,9 @@ public class PauseMenu : MonoBehaviour
 
         if (pauseMenuUI != null)
             pauseMenuUI.SetActive(false);
+
+        if (darkOverlay != null)
+            darkOverlay.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

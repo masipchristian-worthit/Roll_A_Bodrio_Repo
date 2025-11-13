@@ -76,8 +76,7 @@ public class PlayerController : MonoBehaviour
         playerRb.useGravity = false;
 
         Vector3 climbVelocity = new Vector3(0, climbSpeed, 0);
-        playerRb.linearVelocity = climbVelocity; 
-
+        playerRb.linearVelocity = climbVelocity;
     }
     void CinematicMovement()
     {
