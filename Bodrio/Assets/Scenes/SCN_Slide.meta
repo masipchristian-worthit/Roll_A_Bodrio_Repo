@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Bodrio/Assets/Scenes/SCN_Slide.meta
 guid: 5c66a1dc5487cdd429c85e9b50908158
+========
+guid: 53a9480bec3df5446945556198b2da3c
+>>>>>>>> 707f28f97223fec93f8dd10dc87eb838dbd7488d:Bodrio/Assets/Materials/MaterialsSlide.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
