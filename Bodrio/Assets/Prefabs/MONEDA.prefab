@@ -85,9 +85,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 13b9da5d57d11c84c981daddeedde293, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2624389062463760490}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 13b9da5d57d11c84c981daddeedde293, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8265417743178919691}
   m_SourcePrefab: {fileID: 100100000, guid: 13b9da5d57d11c84c981daddeedde293, type: 3}
 --- !u!1 &1386370489107726664 stripped
 GameObject:
@@ -127,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74111f010be924e4b9c7c39bb397c24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionSpeed: 21.2
+  attractionSpeed: 13.2
   collectDistance: 0.4
   coinValue: 1
 --- !u!114 &2624389062463760490
@@ -143,15 +140,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 100
---- !u!114 &8265417743178919691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1386370489107726664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8c22f7aa586c0346bad798ca67de9b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

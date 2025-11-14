@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SCN_Menu.unity
+    guid: 87d2cb45f8557564ab2676a57491d73b
+  - enabled: 1
     path: Assets/Scenes/SCN_Maze_Town.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/SCN_Maze_Sewers.unity
+    guid: f06de938dc9af3a469bb89d3118f7cbd
+  - enabled: 1
+    path: Assets/Scenes/SCN_Slide.unity
+    guid: 345b0a5a945869d468781b72c56f8148
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

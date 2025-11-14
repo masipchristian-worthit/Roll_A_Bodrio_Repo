@@ -11,10 +11,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Guardamos el ID del punto de entrada donde debe aparecer el jugador
             SceneTransitionManager.LastDoorID = targetSpawnID;
 
-            // Cargamos la escena destino
             SceneManager.LoadScene(targetScene);
         }
     }
