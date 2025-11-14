@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SCN_Menu.unity
     guid: 87d2cb45f8557564ab2676a57491d73b
+  - enabled: 0
+    path: Assets/Scenes/SCN_Cheese.unity
+    guid: a6eb96af877ce38439af01c9a30766f2
   - enabled: 1
     path: Assets/Scenes/SCN_Maze_Town.unity
     guid: 99c9720ab356a0642a771bea13969a05
