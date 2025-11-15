@@ -1,16 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections; // Necesario para la Corutina (ya lo tenías)
 
 [RequireComponent(typeof(Rigidbody))]
 public class Dash : MonoBehaviour
 {
     [Header("Dash Settings")]
-    public float dashForce = 20f;       // Fuerza del empujón
-    public float dashDuration = 0.2f;   // Cuánto dura el impulso
-    public float dashCooldown = 1f;     // Tiempo entre dashes
+    public float dashForce = 20f;
+    public float dashDuration = 0.2f;
+    public float dashCooldown = 1f;
 
     [Header("Camera Reference")]
     public Transform cameraTransform;
+
+    // --- SECCIÓN DE SONIDO AÑADIDA ---
+    [Header("Sonido")]
+    public AudioClip soundDash;
+    [Range(0, 1)]
+    public float volumeDash = 1.0f;
+
+    private AudioSource audioSource;
+    // --- FIN DE LA SECCIÓN AÑADIDA ---
 
     private Rigidbody rb;
     private PlayerInput playerInput;
@@ -23,6 +33,16 @@ public class Dash : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
+
+        // --- AÑADIDO PARA INICIALIZAR EL AUDIO ---
+        // Buscamos un AudioSource, si no existe, lo creamos.
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false; // Importante: no queremos que suene al empezar
+        }
+        // --- FIN DE LO AÑADIDO ---
     }
 
     void Start()
@@ -32,7 +52,6 @@ public class Dash : MonoBehaviour
     }
     void OnEnable()
     {
-        // Conecta eventos del Input System
         playerInput.actions["Move"].performed += OnMove;
         playerInput.actions["Move"].canceled += OnMove;
         playerInput.actions["Dash"].performed += OnDash;
@@ -47,7 +66,6 @@ public class Dash : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
-        // Si estás dashing, ignora input de movimiento
         if (isDashing)
             return;
 
@@ -81,16 +99,20 @@ public class Dash : MonoBehaviour
         canDash = false;
         isDashing = true;
 
-        // Aplica una fuerza instantánea hacia la dirección actual
-        rb.linearVelocity = Vector3.zero; // Evita sumar velocidad previa
+        // --- AÑADIDO: REPRODUCIR SONIDO DE DASH ---
+        if (soundDash != null)
+        {
+            audioSource.PlayOneShot(soundDash, volumeDash);
+        }
+        // --- FIN DE LO AÑADIDO ---
+
+        rb.linearVelocity = Vector3.zero;
         rb.AddForce(moveDirection * dashForce, ForceMode.VelocityChange);
 
-        // Espera a que termine la duración del dash
         yield return new WaitForSeconds(dashDuration);
 
         isDashing = false;
 
-        // Espera el cooldown antes de permitir otro dash
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
