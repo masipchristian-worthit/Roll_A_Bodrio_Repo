@@ -13,6 +13,9 @@ TagManager:
   - desWall
   - AnimationWallTeeth
   - Ladder
+  - Countdown
+  - CoinMeter
+  - BlackFade
   layers:
   - Default
   - TransparentFX

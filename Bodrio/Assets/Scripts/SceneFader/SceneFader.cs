@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class SceneFader : MonoBehaviour
 {
+    
     public CanvasGroup fadeCanvasGroup;
-    public float fadeDuration = 1f;
+
+    [Header("Duration")]
+    public float fadeOutDuration = 5f;
+    public float blackScreenDuration = 3f;
 
     void Awake()
     {
         if (fadeCanvasGroup != null)
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeInFromBlack());
     }
 
     public void FadeToScene(string sceneName)
@@ -19,15 +23,15 @@ public class SceneFader : MonoBehaviour
         StartCoroutine(FadeOut(sceneName));
     }
 
-    IEnumerator FadeIn()
+    IEnumerator FadeInFromBlack()
     {
         fadeCanvasGroup.alpha = 1;
-        float timer = 0f;
+        float t = 0f;
 
-        while (timer < fadeDuration)
+        while (t < 1f)
         {
-            timer += Time.unscaledDeltaTime;
-            fadeCanvasGroup.alpha = 1 - (timer / fadeDuration);
+            t += Time.unscaledDeltaTime;
+            fadeCanvasGroup.alpha = 1 - t;
             yield return null;
         }
 
@@ -36,15 +40,18 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeOut(string sceneName)
     {
-        float timer = 0f;
+        float t = 0f;
 
-        while (timer < fadeDuration)
+        while (t < fadeOutDuration)
         {
-            timer += Time.unscaledDeltaTime;
-            fadeCanvasGroup.alpha = timer / fadeDuration;
+            t += Time.unscaledDeltaTime;
+            fadeCanvasGroup.alpha = t / fadeOutDuration;
             yield return null;
         }
 
+        fadeCanvasGroup.alpha = 1;
+
+        yield return new WaitForSecondsRealtime(blackScreenDuration);
         SceneManager.LoadScene(sceneName);
     }
 }

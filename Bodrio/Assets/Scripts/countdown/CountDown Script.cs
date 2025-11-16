@@ -20,7 +20,7 @@ public class CountDownScript : MonoBehaviour
     public float fadeDuration = 5f;
     [HideInInspector] public bool isFading = false;
     public float fadeTimer = 0f;
-    public float blackScreenDuration = 10f;
+    public float blackScreenDuration = 2f;
     private bool blackScreenActive = false;
     private float blackScreenTimer = 0f;
 
@@ -70,12 +70,17 @@ public class CountDownScript : MonoBehaviour
         if (blackScreenActive)
         {
             blackScreenTimer += Time.deltaTime;
+
+
             if (blackScreenTimer >= blackScreenDuration)
             {
                 blackScreenActive = false;
+                SceneManager.LoadScene("SCN_Menu");
             }
+
             return;
         }
+
 
         // efecto fade
         if (isFading)
@@ -132,9 +137,16 @@ public class CountDownScript : MonoBehaviour
     {
         // volver a vincular UI si se destruyó en el cambio de escena
         if (countdownText == null)
-            countdownText = FindAnyObjectByType<TextMeshProUGUI>();
+            countdownText = FindFirstObjectByType<TextMeshProUGUI>();
 
         if (blackFadeImage == null)
-            blackFadeImage = FindAnyObjectByType<Image>();
+        {
+            GameObject fadeObj = GameObject.FindGameObjectWithTag("BlackFade");
+
+            if (fadeObj != null)
+                blackFadeImage = fadeObj.GetComponent<Image>();
+            else
+                Debug.LogWarning("No existe BlackFsade Image");
+        }
     }
 }
