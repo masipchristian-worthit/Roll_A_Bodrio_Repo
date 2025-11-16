@@ -440,6 +440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -524,6 +528,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -731,6 +739,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1222,6 +1234,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1976,6 +1992,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2372,6 +2392,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2902,6 +2926,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4158,6 +4186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4447,6 +4479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4609,6 +4645,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5381,6 +5421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5582,6 +5626,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6052,6 +6100,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8667,6 +8719,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12999,6 +13055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13740,6 +13800,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15011,6 +15075,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15282,6 +15350,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16173,6 +16245,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18284,6 +18360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18758,6 +18838,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19484,6 +19568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TIMECOIN (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19929,6 +20017,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20744,6 +20836,10 @@ PrefabInstance:
     - target: {fileID: 900874247067042225, guid: 96c6e4e81a934344484290947da86e24, type: 3}
       propertyPath: m_Name
       value: TIMECOIN (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148060455707515107, guid: 96c6e4e81a934344484290947da86e24, type: 3}
+      propertyPath: attractionSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
